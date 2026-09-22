@@ -1,0 +1,25 @@
+{
+  "icp_id": "recruitment_agency_b2b_tech",
+  "name": "B2B Tech Scale-ups (5-500 Emp)",
+  "headcount_min": 5,
+  "headcount_max": 500,
+  "allowed_categories": [
+    "Software Development",
+    "Financial Services",
+    "Computer and Network Security",
+    "Technology, Information and Internet",
+    "Information Technology & Services",
+    "Software",
+    "Internet",
+    "Computer Software",
+    "FinTech",
+    "AI",
+    "Artificial Intelligence"
+  ],
+  "allowed_geographies": [
+    "United States",
+    "US",
+    "USA"
+  ],
+  "exa_query": "B2B tech companies with headcount 5-500 showing strong growth signals such as hiring for mid to senior tech roles, recent funding rounds, mass hiring, hiring for leadership roles, expansion signals, or strategic partnerships"
+}

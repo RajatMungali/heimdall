@@ -1,0 +1,1202 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   Nexa Dark Design System — CSS Custom Properties
+   ============================================================ */
+:root {
+  color-scheme: dark;
+
+  /* Canvas & Surface */
+  --nexa-bg: #0a0a0f;
+  --nexa-card: rgba(17, 17, 24, 0.25);
+  --nexa-card-hover: rgba(22, 22, 31, 0.45);
+  --nexa-surface: rgba(26, 26, 36, 0.25);
+  --nexa-border: rgba(255, 255, 255, 0.08);
+  --nexa-border-strong: rgba(255, 255, 255, 0.16);
+
+  /* Primary Accent — Emerald Green */
+  --nexa-accent: #10b981;
+  --nexa-accent-bright: #34d399;
+  --nexa-accent-dim: rgba(16, 185, 129, 0.15);
+  --nexa-accent-glow: rgba(16, 185, 129, 0.25);
+
+  /* Semantic */
+  --nexa-emerald: #34d399;
+  --nexa-emerald-bright: #6ee7b7;
+  --nexa-emerald-dim: rgba(52, 211, 153, 0.12);
+  --nexa-amber: #10b981;
+  --nexa-amber-dim: rgba(16, 185, 129, 0.12);
+  --nexa-rose: #fb7185;
+  --nexa-rose-dim: rgba(251, 113, 133, 0.12);
+  --nexa-indigo: #818cf8;
+  --nexa-indigo-dim: rgba(129, 140, 248, 0.12);
+
+  /* Typography */
+  --nexa-text-primary: #f0f0f5;
+  --nexa-text-secondary: #9ca3af;
+  --nexa-text-muted: #6b7280;
+
+  /* Fonts */
+  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  background: var(--nexa-bg);
+  color: var(--nexa-text-primary);
+}
+
+html {
+  font-size: 115%;
+  /* Scales up the base rem size for the entire webpage */
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  max-width: 100vw;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Smooth Theme Transition on Layout Containers */
+html,
+body,
+header,
+main,
+nav,
+.nexa-card,
+button,
+input {
+  transition: background-color 0.3s ease,
+    border-color 0.3s ease,
+    color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+/* ============================================================
+   Golden Light Flare — Top Viewport Gradient
+   ============================================================ */
+.nexa-flare {
+  position: fixed;
+  top: -200px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1000px;
+  height: 1200px;
+  background: radial-gradient(ellipse 50% 50% at 50% 15%,
+      rgba(16, 185, 129, 0.35) 0%,
+      rgba(52, 211, 153, 0.18) 40%,
+      transparent 80%);
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(80px);
+}
+
+/* ============================================================
+   Semi-Circular Gauge Dial
+   ============================================================ */
+.gauge-arc {
+  fill: none;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.gauge-track {
+  stroke: var(--nexa-border-strong);
+}
+
+.gauge-fill {
+  stroke: var(--nexa-accent);
+  filter: drop-shadow(0 0 6px var(--nexa-accent-glow));
+}
+
+.gauge-text {
+  fill: var(--nexa-accent);
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  text-anchor: middle;
+}
+
+.gauge-sub {
+  fill: var(--nexa-text-muted);
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  text-anchor: middle;
+}
+
+/* ============================================================
+   Glow & Pulse Animations
+   ============================================================ */
+@keyframes pulse-glow {
+
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes gauge-fill-in {
+  from {
+    stroke-dashoffset: 283;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-in {
+  0% {
+    transform: translateX(100%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-gauge-fill {
+  animation: gauge-fill-in 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.4s ease-out both;
+}
+
+.animate-slide-in {
+  animation: slide-in 180ms ease-out;
+}
+
+/* ============================================================
+   Nexa Card Hover Effect
+   ============================================================ */
+.nexa-card {
+  background: rgba(17, 17, 24, 0.65);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  box-shadow: 
+    0 10px 24px -6px rgba(0, 0, 0, 0.4),
+    0 4px 10px -2px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nexa-card:not(.nexa-card-no-hover):hover {
+  background: rgba(22, 22, 31, 0.80);
+  border-color: rgba(16, 185, 129, 0.4);
+  box-shadow: 
+    0 14px 30px -6px rgba(0, 0, 0, 0.6),
+    0 6px 14px -2px rgba(16, 185, 129, 0.15),
+    inset 0 1px 0 0 rgba(16, 185, 129, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Table row record hover accent */
+.nexa-row-hover {
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.nexa-row-hover:hover {
+  background: rgba(16, 185, 129, 0.08) !important;
+}
+
+html.light-theme .nexa-row-hover:hover {
+  background: rgba(16, 185, 129, 0.10) !important;
+}
+
+/* ============================================================
+   Scrollbar Styling
+   ============================================================ */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--nexa-border-strong);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--nexa-text-muted);
+}
+
+/* ============================================================
+   Light Glassmorphic System (Exact Match for Theme Toggle)
+   ============================================================ */
+html.light-theme {
+  color-scheme: light;
+  background: linear-gradient(135deg, #dceefb 0%, #e0f2fe 30%, #e6f4ea 70%, #f0fdf4 100%) !important;
+  color: #1e293b !important;
+
+  --nexa-bg: #e2eff7;
+  --nexa-card: rgba(255, 255, 255, 0.65);
+  --nexa-card-hover: rgba(255, 255, 255, 0.85);
+  --nexa-surface: rgba(255, 255, 255, 0.75);
+  --nexa-border: rgba(255, 255, 255, 0.85);
+  --nexa-border-strong: rgba(255, 255, 255, 1);
+
+  --nexa-accent: #d97706;
+  --nexa-accent-bright: #b45309;
+  --nexa-accent-dim: rgba(217, 119, 6, 0.12);
+  --nexa-accent-glow: rgba(217, 119, 6, 0.2);
+
+  --nexa-emerald: #059669;
+  --nexa-emerald-bright: #047857;
+  --nexa-emerald-dim: rgba(5, 150, 105, 0.12);
+  --nexa-amber: #d97706;
+  --nexa-amber-dim: rgba(217, 119, 6, 0.12);
+  --nexa-rose: #e11d48;
+  --nexa-rose-dim: rgba(225, 29, 72, 0.12);
+  --nexa-indigo: #4f46e5;
+  --nexa-indigo-dim: rgba(79, 70, 229, 0.12);
+
+  --nexa-text-primary: #0f172a;
+  --nexa-text-secondary: #334155;
+  --nexa-text-muted: #64748b;
+}
+
+html.light-theme .nexa-flare {
+  background: radial-gradient(ellipse 60% 50% at 50% 15%,
+      rgba(56, 189, 248, 0.3) 0%,
+      rgba(52, 211, 153, 0.2) 45%,
+      transparent 80%) !important;
+}
+
+/* Glassmorphic card styling for light theme */
+html.light-theme .nexa-card {
+  background: rgba(255, 255, 255, 0.76) !important;
+  backdrop-filter: blur(28px) saturate(200%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(200%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.95) !important;
+  border-radius: 20px !important;
+  box-shadow: 
+    0 16px 36px -6px rgba(15, 23, 42, 0.08),
+    0 6px 16px -2px rgba(15, 23, 42, 0.04),
+    inset 0 1px 0 0 rgba(255, 255, 255, 1) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+html.light-theme .nexa-card:not(.nexa-card-no-hover):hover {
+  background: rgba(255, 255, 255, 0.90) !important;
+  border-color: rgba(16, 185, 129, 0.45) !important;
+  box-shadow: 
+    0 20px 44px -6px rgba(16, 185, 129, 0.16),
+    0 8px 20px -2px rgba(15, 23, 42, 0.06),
+    inset 0 1px 0 0 rgba(255, 255, 255, 1) !important;
+  transform: translateY(-2px);
+}
+
+
+/* Text overrides in Light Theme */
+html.light-theme,
+html.light-theme body,
+html.light-theme main,
+html.light-theme .nexa-card {
+  color: #0f172a !important;
+}
+
+html.light-theme .text-zinc-100,
+html.light-theme .text-zinc-200,
+html.light-theme .text-slate-900,
+html.light-theme .text-slate-800,
+html.light-theme .text-slate-700,
+html.light-theme h1,
+html.light-theme h2,
+html.light-theme h3,
+html.light-theme h4 {
+  color: #0f172a !important;
+}
+
+html.light-theme p,
+html.light-theme span.text-slate-900,
+html.light-theme div.text-slate-900 {
+  color: #0f172a !important;
+}
+
+html.light-theme .text-zinc-300,
+html.light-theme .text-zinc-400,
+html.light-theme .text-zinc-500,
+html.light-theme .text-slate-600,
+html.light-theme .text-slate-500 {
+  color: #475569 !important;
+}
+
+/* Explicit white text override for dark theme toggle pill in light mode */
+html.light-theme .theme-toggle-label {
+  color: #ffffff !important;
+}
+
+/* Light Theme Table Header Filter Button Override */
+html.light-theme th button {
+  background-color: #f1f5f9 !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+}
+
+html.light-theme th button:hover {
+  background-color: #e2e8f0 !important;
+  color: #020617 !important;
+}
+
+html.light-theme .text-white,
+html.light-theme aside .text-white {
+  color: #ffffff !important;
+}
+
+/* Light Theme Social Posts Tab & Input Overrides */
+html.light-theme code {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  color: #1e293b !important;
+  border-color: rgba(203, 213, 225, 0.8) !important;
+}
+
+html.light-theme input[placeholder="Search keywords or posts..."] {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+}
+
+html.light-theme .scrollbar-hide button:not(.bg-amber-500) {
+  background-color: #ffffff !important;
+  color: #334155 !important;
+  border-color: #cbd5e1 !important;
+}
+
+html.light-theme .scrollbar-hide button:not(.bg-amber-500):hover {
+  background-color: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+
+/* Light Theme Popovers (Filter & Notifications) */
+html.light-theme .filter-popover,
+html.light-theme .notification-popover,
+html.light-theme .profile-popover {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #e2e8f0 !important;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1) !important;
+}
+
+html.light-theme .filter-popover label {
+  color: #475569 !important;
+}
+
+html.light-theme .filter-popover .filter-btn-active {
+  background-color: #059669 !important;
+  color: #ffffff !important;
+  border-color: #059669 !important;
+}
+
+html.light-theme .filter-popover .filter-btn-inactive {
+  background-color: #f8fafc !important;
+  color: #0f172a !important;
+  border-color: #e2e8f0 !important;
+}
+
+html.light-theme .filter-popover .filter-btn-inactive:hover {
+  background-color: #f1f5f9 !important;
+  color: #020617 !important;
+}
+
+html.light-theme .notification-popover div[class*="bg-slate-50"],
+html.light-theme .profile-popover div {
+  background-color: #f8fafc !important;
+  border-color: #e2e8f0 !important;
+}
+
+html.light-theme .notification-popover p,
+html.light-theme .profile-popover p,
+html.light-theme .profile-popover button {
+  color: #0f172a !important;
+}
+
+/* Social Post Card Text Weight Overrides */
+.social-post-card-content {
+  font-weight: 400 !important;
+}
+
+html.light-theme .social-post-card-content {
+  color: #1e293b !important;
+}
+
+html.dark .social-post-card-content {
+  color: #e4e4e7 !important;
+}
+
+/* Deep Research / PitcherMode Light Theme Overrides */
+html.light-theme .deep-research-input {
+  background-color: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+html.light-theme .deep-research-box {
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+html.light-theme .deep-research-box *,
+html.light-theme .deep-research-box p,
+html.light-theme .deep-research-box li,
+html.light-theme .deep-research-box strong {
+  color: #0f172a !important;
+}
+
+/* Table Header Styling */
+html.light-theme table thead tr {
+  background-color: rgba(248, 250, 252, 0.7) !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+  box-shadow: none !important;
+}
+
+html.light-theme table thead th {
+  color: #334155 !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.05em !important;
+}
+
+html.dark table thead tr {
+  background-color: rgba(255, 255, 255, 0.03) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: none !important;
+}
+
+/* Sidebar Light Theme Overrides */
+html.light-theme aside,
+html:not(.dark) aside {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05) !important;
+  color: #0f172a !important;
+}
+
+html.light-theme aside h1,
+html:not(.dark) aside h1 {
+  color: #0f172a !important;
+}
+
+html.light-theme aside .text-slate-900,
+html:not(.dark) aside .text-slate-900 {
+  color: #0f172a !important;
+}
+
+html.light-theme aside .text-emerald-950,
+html:not(.dark) aside .text-emerald-950 {
+  color: #042f2e !important;
+}
+
+/* Sidebar Theme-Scoped Container Styling */
+.sidebar-container {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  color: #0f172a !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05) !important;
+}
+
+html.dark .sidebar-container,
+.dark .sidebar-container {
+  background-color: #111118 !important;
+  background: #111118 !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: #f4f4f5 !important;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5) !important;
+}
+
+html.light-theme .sidebar-container,
+html:not(.dark) .sidebar-container {
+  background-color: #ffffff !important;
+  background: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  color: #0f172a !important;
+}
+
+/* Sidebar Dark Theme Overrides */
+html.dark aside,
+.dark aside {
+  background: #111118 !important;
+  background-color: #111118 !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: #f4f4f5 !important;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5) !important;
+}
+
+html.dark aside h1,
+.dark aside h1 {
+  color: #f4f4f5 !important;
+}
+
+html.dark aside .text-slate-900,
+.dark aside .text-slate-900 {
+  color: #f4f4f5 !important;
+}
+
+html.dark aside .text-slate-700,
+.dark aside .text-slate-700 {
+  color: #a1a1aa !important;
+}
+
+html.dark aside button,
+.dark aside button {
+  color: #a1a1aa !important;
+}
+
+html.dark aside button:hover,
+.dark aside button:hover {
+  color: #ffffff !important;
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+html.dark aside button.bg-gradient-to-r,
+.dark aside button.bg-gradient-to-r {
+  background: linear-gradient(90deg, rgba(6, 78, 59, 0.8) 0%, rgba(4, 120, 87, 0.6) 100%) !important;
+  color: #6ee7b7 !important;
+  border-color: rgba(52, 211, 153, 0.4) !important;
+  box-shadow: 0 2px 12px rgba(16, 185, 129, 0.25) !important;
+}
+
+html.dark aside button.bg-gradient-to-r span,
+html.dark aside button.bg-gradient-to-r svg,
+.dark aside button.bg-gradient-to-r span,
+.dark aside button.bg-gradient-to-r svg {
+  color: #6ee7b7 !important;
+}
+
+html.dark aside .bg-slate-100,
+.dark aside .bg-slate-100 {
+  background-color: #181824 !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: #f4f4f5 !important;
+}
+
+html.dark aside .bg-emerald-100,
+.dark aside .bg-emerald-100 {
+  background-color: rgba(6, 78, 59, 0.4) !important;
+  border-color: rgba(52, 211, 153, 0.4) !important;
+  color: #34d399 !important;
+}
+
+html.dark aside .text-emerald-950,
+.dark aside .text-emerald-950 {
+  color: #34d399 !important;
+}
+
+/* Side Drawer Light Theme Overrides */
+html.light-theme .side-drawer-panel,
+html.light-theme .pitcher-mode-drawer {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-left: 1px solid #e2e8f0 !important;
+  box-shadow: -10px 0 35px rgba(0, 0, 0, 0.12) !important;
+}
+
+html.light-theme .side-drawer-header {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+}
+
+html.light-theme .side-drawer-hero {
+  background-color: #eef2ff !important;
+  border-color: #c7d2fe !important;
+}
+
+html.light-theme .side-drawer-tabs {
+  background-color: #f1f5f9 !important;
+  border-color: #e2e8f0 !important;
+}
+
+html.light-theme .side-drawer-tab-active {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+}
+
+html.light-theme .side-drawer-tab-inactive {
+  color: #64748b !important;
+}
+
+html.light-theme .side-drawer-card {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  color: #0f172a !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
+}
+
+html.light-theme .side-drawer-verdict-card {
+  background-color: #fffbeb !important;
+  border-color: #fde68a !important;
+  color: #78350f !important;
+}
+
+html.light-theme .side-drawer-verdict-text {
+  color: #78350f !important;
+}
+
+html.light-theme .side-drawer-verdict-inner {
+  background-color: #ffffff !important;
+  border-color: #fcd34d !important;
+  color: #78350f !important;
+}
+
+html.light-theme .side-drawer-verdict-inner span {
+  color: #78350f !important;
+}
+
+html.light-theme .side-drawer-pill {
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  color: #1e293b !important;
+}
+
+html.light-theme .text-zinc-600 {
+  color: #64748b !important;
+}
+
+/* Background overrides in Light Theme */
+html.light-theme .bg-nexa-bg {
+  background: #f8fafc !important;
+}
+
+html.light-theme .bg-nexa-surface {
+  background: #ffffff !important;
+  border-color: #e2e8f0 !important;
+}
+
+html.light-theme div.bg-white\/5,
+html.light-theme div.bg-white\/10,
+html.light-theme span.bg-white\/5,
+html.light-theme span.bg-white\/10 {
+  background-color: rgba(255, 255, 255, 0.65) !important;
+}
+
+html.light-theme .border-white\/5,
+html.light-theme .border-white\/10,
+html.light-theme .border-white\/15,
+html.light-theme .border-white\/20 {
+  border-color: rgba(255, 255, 255, 0.85) !important;
+}
+
+html.light-theme .border-nexa-border {
+  border-color: rgba(226, 232, 240, 0.6) !important;
+}
+
+/* Row Hover in Light Theme — Only hovered row highlights in crisp white */
+html.light-theme tr.nexa-row-hover {
+  background-color: transparent !important;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.5) !important;
+}
+
+html.light-theme tr.nexa-row-hover:hover {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  border-left-color: #d97706 !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04) !important;
+}
+
+/* Executive Contacts Drawer & Highlighted Cards in Light Theme */
+html.light-theme .expanded-contacts-container {
+  background-color: rgba(241, 245, 249, 0.6) !important;
+  border-top-color: rgba(226, 232, 240, 0.8) !important;
+}
+
+html.light-theme .contact-card {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(255, 255, 255, 1) !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.03) !important;
+}
+
+html.light-theme .contact-card:hover {
+  background-color: #ffffff !important;
+  border-color: rgba(217, 119, 6, 0.5) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1) !important;
+  transform: translateY(-1px);
+}
+
+
+
+/* Sidebar Active Navigation Pill in Light Theme */
+html.light-theme aside button.bg-[var\(--nexa-accent-dim\)],
+html.light-theme aside button.bg-zinc-800\/20 {
+  background: rgba(16, 185, 129, 0.14) !important;
+  color: #047857 !important;
+  border: 1px solid rgba(16, 185, 129, 0.3) !important;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.1) !important;
+  font-weight: 700 !important;
+}
+
+html.light-theme aside button:not(.bg-\[var\(--nexa-accent-dim\)\]) {
+  color: #475569 !important;
+}
+
+html.light-theme aside button:not(.bg-\[var\(--nexa-accent-dim\)\]):hover {
+  background: rgba(255, 255, 255, 0.6) !important;
+  color: #0f172a !important;
+}
+
+/* Glassmorphic Inputs & Textareas */
+.glass-input {
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  color: #e4e4e7;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-input:focus {
+  border-color: var(--nexa-accent) !important;
+  box-shadow: 0 0 16px rgba(245, 158, 11, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  outline: none;
+}
+
+html.light-theme .glass-input {
+  background: rgba(255, 255, 255, 0.75) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(203, 213, 225, 0.8) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+  color: #0f172a !important;
+}
+
+html.light-theme .glass-input:focus {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-color: var(--nexa-accent) !important;
+  box-shadow: 0 0 16px rgba(245, 158, 11, 0.25), inset 0 1px 0 #ffffff !important;
+}
+
+/* Boolean Query Preview Box */
+.boolean-preview-box {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  color: #34d399;
+}
+
+.boolean-preview-title {
+  color: #71717a;
+}
+
+html.light-theme .boolean-preview-box {
+  background: #ecfdf5 !important;
+  border-color: #a7f3d0 !important;
+  color: #047857 !important;
+}
+
+html.light-theme .boolean-preview-title {
+  color: #065f46 !important;
+}
+
+/* Gauge tracks & text in Light Theme */
+html.light-theme .gauge-track {
+  stroke: rgba(203, 213, 225, 0.8) !important;
+}
+
+html.light-theme svg text {
+  fill: #0f172a !important;
+}
+
+
+/* Scan Company & Run Pipeline buttons in Light Theme */
+html.light-theme button.bg-\[var\(--nexa-accent-dim\)\] {
+  background: rgba(254, 243, 199, 0.9) !important;
+  color: #92400e !important;
+  border-color: rgba(252, 211, 77, 0.8) !important;
+  font-weight: 700 !important;
+}
+
+html.light-theme button.bg-\[var\(--nexa-emerald-dim\)\] {
+  background: rgba(209, 250, 229, 0.9) !important;
+  color: #065f46 !important;
+  border-color: rgba(110, 231, 183, 0.8) !important;
+  font-weight: 700 !important;
+}
+
+/* Pitcher AI & Delete Buttons in Light Theme */
+html.light-theme button:has(.lucide-sparkles) {
+  background: rgba(255, 255, 255, 0.85) !important;
+  color: #047857 !important;
+  border: 1px solid rgba(110, 231, 183, 0.8) !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04) !important;
+  font-weight: 700 !important;
+}
+
+html.light-theme button:has(.lucide-sparkles):hover {
+  background: rgba(209, 250, 229, 0.9) !important;
+}
+
+html.light-theme button:has(.lucide-trash-2) {
+  background: rgba(255, 255, 255, 0.85) !important;
+  color: #64748b !important;
+  border: 1px solid rgba(226, 232, 240, 0.9) !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04) !important;
+}
+
+html.light-theme button:has(.lucide-trash-2):hover {
+  background: #fff1f2 !important;
+  color: #e11d48 !important;
+  border-color: #fecdd3 !important;
+}
+
+/* Tier Filter Buttons in Light Theme */
+html.light-theme button.bg-\[var\(--nexa-accent\)\] {
+  background: #fbbf24 !important;
+  color: #0f172a !important;
+  font-weight: 700 !important;
+  box-shadow: 0 2px 6px rgba(251, 191, 36, 0.3) !important;
+}
+
+/* Pitcher Mode Slide-over Drawer in Light Theme */
+html.light-theme .pitcher-mode-drawer {
+  background-color: rgba(255, 255, 255, 0.88) !important;
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+  border-left: 1px solid rgba(255, 255, 255, 0.9) !important;
+  box-shadow: -10px 0 40px rgba(0, 50, 100, 0.12) !important;
+  color: #0f172a !important;
+}
+
+html.light-theme .pitcher-mode-drawer input {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(226, 232, 240, 0.9) !important;
+  color: #0f172a !important;
+  font-weight: 700 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+}
+
+html.light-theme .pitcher-mode-drawer .min-h-\[280px\] {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(226, 232, 240, 0.9) !important;
+  color: #1e293b !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04) !important;
+}
+
+html.light-theme .pitcher-mode-drawer strong {
+  color: #0f172a !important;
+  font-weight: 700 !important;
+}
+
+html.light-theme .pitcher-mode-drawer li,
+html.light-theme .pitcher-mode-drawer p {
+  color: #334155 !important;
+}
+
+html.light-theme .pitcher-mode-drawer button.bg-nexa-card {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  border-color: rgba(226, 232, 240, 0.9) !important;
+  color: #64748b !important;
+}
+
+html.light-theme .pitcher-mode-drawer button.bg-nexa-card:hover {
+  color: #0f172a !important;
+  background-color: #ffffff !important;
+}
+
+/* ============================================================
+   Document Magnifier Scanning Animations
+   ============================================================ */
+@keyframes orbitMagnifier {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes counterRotateUpright {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes scrollBlurredNames {
+  0% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+@keyframes laserSweep {
+  0% {
+    top: 10%;
+    opacity: 0.2;
+  }
+  50% {
+    top: 85%;
+    opacity: 1;
+  }
+  100% {
+    top: 10%;
+    opacity: 0.2;
+  }
+}
+
+@keyframes innerOrbit {
+  0% {
+    transform: translate(-50%, -50%) translate(0px, -35px);
+  }
+  25% {
+    transform: translate(-50%, -50%) translate(75px, 0px);
+  }
+  50% {
+    transform: translate(-50%, -50%) translate(0px, 35px);
+  }
+  75% {
+    transform: translate(-50%, -50%) translate(-75px, 0px);
+  }
+  100% {
+    transform: translate(-50%, -50%) translate(0px, -35px);
+  }
+}
+
+.animate-orbit-magnifier {
+  animation: orbitMagnifier 6s linear infinite;
+}
+
+.animate-upright-glass {
+  animation: counterRotateUpright 6s linear infinite;
+}
+
+.animate-scroll-blurred {
+  animation: scrollBlurredNames 12s linear infinite;
+}
+
+.animate-laser-sweep {
+  animation: laserSweep 3.5s ease-in-out infinite;
+}
+
+.animate-inner-magnifier {
+  animation: innerOrbit 5.5s ease-in-out infinite;
+}
+
+/* ============================================================
+   Light Theme Tag & Badge Contrast Overrides
+   ============================================================ */
+html.light-theme .bg-indigo-100 {
+  background-color: #e0e7ff !important;
+  color: #312e81 !important;
+  border-color: #a5b4fc !important;
+}
+
+html.light-theme .bg-emerald-100 {
+  background-color: #d1fae5 !important;
+  color: #064e3b !important;
+  border-color: #6ee7b7 !important;
+}
+
+html.light-theme .bg-amber-100 {
+  background-color: #fef3c7 !important;
+  color: #78350f !important;
+  border-color: #fcd34d !important;
+}
+
+html.light-theme .bg-purple-100 {
+  background-color: #f3e8ff !important;
+  color: #581c87 !important;
+  border-color: #d8b4fe !important;
+}
+
+html.light-theme .bg-teal-100 {
+  background-color: #ccfbf1 !important;
+  color: #134e4a !important;
+  border-color: #5eead4 !important;
+}
+
+html.light-theme .bg-rose-100 {
+  background-color: #ffe4e6 !important;
+  color: #881337 !important;
+  border-color: #fca5a5 !important;
+}
+
+/* Light Theme Delete Button Override */
+html.light-theme button.bg-rose-50,
+html.light-theme button[title="Delete Lead"] {
+  background-color: #fff1f2 !important;
+  color: #e11d48 !important;
+  border: 1px solid #fecdd3 !important;
+}
+
+html.light-theme button.bg-rose-50:hover,
+html.light-theme button[title="Delete Lead"]:hover {
+  background-color: #ffe4e6 !important;
+  color: #be123c !important;
+  border-color: #fda4af !important;
+}
+
+/* ============================================================
+   Glassmorphic Floating Mobile Bottom Navigation Dock
+   ============================================================ */
+.mobile-bottom-dock {
+  display: flex !important;
+  position: fixed !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  transform: none !important;
+  z-index: 40 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  background: rgba(18, 18, 28, 0.92) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.18) !important;
+  padding: 4px 2px !important;
+  align-items: center !important;
+  justify-content: space-around !important;
+  box-shadow: 0 -10px 35px rgba(0, 0, 0, 0.25) !important;
+  pointer-events: auto !important;
+}
+
+html.light-theme .mobile-bottom-dock,
+html:not(.dark) .mobile-bottom-dock {
+  background: rgba(255, 255, 255, 0.96) !important;
+  border-top: 1px solid rgba(0, 0, 0, 0.12) !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-bottom: none !important;
+  box-shadow: 0 -10px 35px rgba(0, 0, 0, 0.08) !important;
+}
+
+@media (min-width: 1024px) {
+  .mobile-bottom-dock {
+    display: none !important;
+  }
+}
+
+/* ============================================================
+   Social Media Signals Header System
+   ============================================================ */
+.social-header-icon {
+  background-color: #FDE9BD;
+  border: 1px solid rgba(252, 211, 77, 0.5);
+  color: #9A5B00;
+}
+
+html.dark .social-header-icon {
+  background-color: rgba(120, 53, 15, 0.4);
+  border-color: rgba(217, 119, 6, 0.4);
+  color: #fcd34d;
+}
+
+.social-header-title {
+  color: #0f172a;
+}
+
+html.dark .social-header-title {
+  color: #f4f4f5;
+}
+
+.social-header-subtitle {
+  color: #64748b;
+}
+
+html.dark .social-header-subtitle {
+  color: #a1a1aa;
+}
+
+.social-search-input {
+  background-color: #ffffff;
+  border: 1px solid rgba(203, 213, 225, 0.8);
+  color: #0f172a;
+}
+
+html.dark .social-search-input {
+  background-color: rgba(24, 24, 37, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #f4f4f5;
+}
+
+.social-search-input::placeholder {
+  color: #94a3b8;
+}
+
+html.dark .social-search-input::placeholder {
+  color: #71717a;
+}
+
+.social-fetch-btn {
+  background-color: #f59e0b !important;
+  color: #451a03 !important;
+  font-weight: 800 !important;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3) !important;
+  border: 1px solid rgba(217, 119, 6, 0.4) !important;
+}
+
+.social-fetch-btn:hover {
+  background-color: #d97706 !important;
+  color: #ffffff !important;
+}
+
+html.dark .social-fetch-btn {
+  background-color: #d97706 !important;
+  color: #000000 !important;
+  border-color: rgba(180, 83, 9, 0.4) !important;
+  box-shadow: 0 4px 12px rgba(217, 119, 6, 0.25) !important;
+}
+
+/* Light Theme Close Button Overrides */
+html.light-theme button[aria-label="Close Intent Summary"],
+html.light-theme button[title="Close Panel"] {
+  background-color: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
+  color: #334155 !important;
+}
+
+html.light-theme button[aria-label="Close Intent Summary"]:hover,
+html.light-theme button[title="Close Panel"]:hover {
+  background-color: #e2e8f0 !important;
+  color: #0f172a !important;
+}
