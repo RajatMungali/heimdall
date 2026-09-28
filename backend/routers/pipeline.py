@@ -68,3 +68,16 @@ async def trigger_cron_endpoint():
     from backend.pipeline.streaming_orchestrator import trigger_midnight_cron_run
     res = await trigger_midnight_cron_run(daily_quota=20)
     return res
+
+@router.post("/track-jobs/run-day1")
+async def trigger_track_jobs_day1():
+    """Manually trigger the first Track Jobs acquisition run."""
+    from backend.pipeline.job_pipeline import fetch_day1_jobs
+
+    jobs = await fetch_day1_jobs()
+
+    return {
+        "status": "success",
+        "qualified_jobs": len(jobs),
+        "message": f"Day 1 Track Jobs run completed. {len(jobs)} qualified jobs found."
+    }
