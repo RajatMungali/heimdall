@@ -284,7 +284,7 @@ def fetch_career_site_jobs(
             "Apify Career Site Job Listing API run did not return a result"
         )
 
-    dataset_id = run.default_dataset_id
+    dataset_id = run["defaultDatasetId"]
 
     items = list(
         client.dataset(
