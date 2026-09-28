@@ -89,7 +89,7 @@ export const MOCK_LEADS: LeadDetailResponse[] = [
       },
     ],
     ai_verdict:
-      'Acme Systems has fresh funding and direct SDR hiring pressure, making it a strong outsourced pipeline-building candidate.',
+      'Acme Systems has fresh funding and direct SDR hiring pressure, making it a strong outsourced pipeline-building candidate',
     dns_audit: {
       spf: 'Valid',
       dkim: 'Valid',
