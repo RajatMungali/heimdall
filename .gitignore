@@ -3,7 +3,7 @@
 backend/.env
 frontend/.env
 *.env
-
+!vercel.json
 # Python & Virtual Environment
 __pycache__/
 *.py[cod]
