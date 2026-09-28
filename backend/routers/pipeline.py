@@ -69,30 +69,39 @@ async def trigger_cron_endpoint():
     res = await trigger_midnight_cron_run(daily_quota=20)
     return res
 
+
+
 @router.post("/track-jobs/run-day1")
 async def trigger_track_jobs_day1():
-    """Manually trigger the first Track Jobs acquisition run."""
-    from backend.pipeline.job_pipeline import fetch_day1_jobs
+    import traceback
 
-    jobs = await fetch_day1_jobs()
-
-    return {
-        "status": "success",
-        "qualified_jobs": len(jobs),
-        "message": f"Day 1 Track Jobs run completed. {len(jobs)} qualified jobs found."
-    }
-@router.post("/track-jobs/run-day1")
-async def trigger_track_jobs_day1():
     print("TRACK JOBS: endpoint entered")
 
-    from backend.pipeline.job_pipeline import fetch_day1_jobs
-    print("TRACK JOBS: job_pipeline imported")
+    try:
+        print("TRACK JOBS: importing job_pipeline")
 
-    jobs = await fetch_day1_jobs()
-    print(f"TRACK JOBS: fetch_day1_jobs returned {len(jobs)}")
+        from backend.pipeline.job_pipeline import fetch_day1_jobs
 
-    return {
-        "status": "success",
-        "qualified_jobs": len(jobs),
-        "message": f"Day 1 Track Jobs run completed. {len(jobs)} qualified jobs found."
-    }
+        print("TRACK JOBS: job_pipeline imported")
+        print("TRACK JOBS: starting fetch_day1_jobs")
+
+        jobs = await fetch_day1_jobs()
+
+        print(f"TRACK JOBS: completed, jobs={len(jobs)}")
+
+        return {
+            "status": "success",
+            "qualified_jobs": len(jobs),
+            "message": f"Day 1 Track Jobs run completed. {len(jobs)} qualified jobs found."
+        }
+
+    except Exception as e:
+        print("TRACK JOBS ERROR:")
+        traceback.print_exc()
+
+        return {
+            "status": "error",
+            "error_type": type(e).__name__,
+            "error": str(e),
+            "traceback": traceback.format_exc(),
+        }
