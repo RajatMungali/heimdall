@@ -1,7 +1,7 @@
 import type { LeadDetailResponse } from "../types/lead";
 
 export const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || "https://heimdall-alfl.vercel.app/";
+  import.meta.env.VITE_API_BASE_URL || "https://heimdall-alfl.vercel.app";
 
 export interface PitcherModeResponse {
   lead_id: string;
