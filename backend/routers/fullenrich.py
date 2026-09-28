@@ -402,7 +402,7 @@ async def background_poll_fullenrich_result(enrichment_id: str, job_id: str, com
     resolved = False
     try:
         async with httpx.AsyncClient(timeout=15.0) as client:
-            for attempt in range(12):  # 12 attempts * 4s = 48s max
+            for attempt in range(45):  # 12 attempts * 4s = 48s max
                 await asyncio.sleep(4)
                 res = await client.get(
                     f"https://app.fullenrich.com/api/v2/contact/enrich/bulk/{enrichment_id}",
