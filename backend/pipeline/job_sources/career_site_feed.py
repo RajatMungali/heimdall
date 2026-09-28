@@ -250,7 +250,7 @@ def fetch_career_site_jobs(
 
     payload = {
         "timeRange": "6m",
-        "limit": 10,
+        "limit": 100,
         "datePostedAfter": cutoff_60_days.strftime("%Y-%m-%d"),
         "includeCompanyDetails": True,
         "descriptionType": "text",

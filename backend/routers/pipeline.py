@@ -81,3 +81,18 @@ async def trigger_track_jobs_day1():
         "qualified_jobs": len(jobs),
         "message": f"Day 1 Track Jobs run completed. {len(jobs)} qualified jobs found."
     }
+@router.post("/track-jobs/run-day1")
+async def trigger_track_jobs_day1():
+    print("TRACK JOBS: endpoint entered")
+
+    from backend.pipeline.job_pipeline import fetch_day1_jobs
+    print("TRACK JOBS: job_pipeline imported")
+
+    jobs = await fetch_day1_jobs()
+    print(f"TRACK JOBS: fetch_day1_jobs returned {len(jobs)}")
+
+    return {
+        "status": "success",
+        "qualified_jobs": len(jobs),
+        "message": f"Day 1 Track Jobs run completed. {len(jobs)} qualified jobs found."
+    }
